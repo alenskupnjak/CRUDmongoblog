@@ -1,3 +1,17 @@
-<p>
-  side-nav works!
-</p>
+
+
+<mat-sidenav-container class="app-sidenav-container">
+
+  <mat-sidenav class="app-sidenav" #sidenav>
+    fino
+  </mat-sidenav>
+
+  <div class="app-sidenav-container">
+      <app-toolbar></app-toolbar>
+      <router-outlet></router-outlet>
+    <button type="button" mat-button (click)="sidenav.open()" >
+      otvori Sidenav
+    </button>
+  </div>
+
+</mat-sidenav-container>
