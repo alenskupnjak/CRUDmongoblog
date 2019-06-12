@@ -1,0 +1,4 @@
+<h3>Hero List </h3>
+<li *ngFor = "let hero of heroes" > {{hero.name}}</li>
+<br>
+<app-hero-detail [vezaVanjska] = "myHero" (vezaPromjena) = "onDeleteHandler($event)"> </app-hero-detail>
