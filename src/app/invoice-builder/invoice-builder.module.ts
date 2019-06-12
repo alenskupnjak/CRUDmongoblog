@@ -1,0 +1,19 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { InvoiceBuilderRoutingModule } from './invoice-builder-routing.module';
+import { InvoiceBuilderComponent } from './invoice-builder.component';
+import { MaterialModule } from '../shared/material.module';
+import { MainContentComponent } from './components/main-content/main-content.component';
+import { SideNavComponent } from './components/side-nav/side-nav.component';
+
+@NgModule({
+  declarations: [InvoiceBuilderComponent, MainContentComponent, SideNavComponent],
+  imports: [
+    CommonModule,
+    InvoiceBuilderRoutingModule,
+    MaterialModule
+  ]
+})
+
+export class InvoiceBuilderModule { }

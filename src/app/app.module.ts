@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 
@@ -12,6 +12,8 @@ import { HeroListComponent } from './hero/hero-list/hero-list.component';
 import { HeroDetailComponent } from './hero/hero-detail/hero-detail.component';
 import { CardComponent } from './card/card.component';
 import { MaterialModule } from './shared/material.module';
+import { AppRoutingModule } from './app-routing.module';
+
 
 @NgModule({
   declarations: [
@@ -25,11 +27,13 @@ import { MaterialModule } from './shared/material.module';
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    MaterialModule
+    MaterialModule,
+    AppRoutingModule
 
   ],
   providers: [HeroService, Logger],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  // schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 })
 export class AppModule { }
 
