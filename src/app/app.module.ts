@@ -21,7 +21,7 @@ import { AppRoutingModule } from './app-routing.module';
     HeroComponent,
     HeroListComponent,
     HeroDetailComponent,
-    CardComponent
+    CardComponent,
   ],
   imports: [
     BrowserModule,
