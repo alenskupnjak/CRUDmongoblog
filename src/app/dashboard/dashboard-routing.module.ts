@@ -2,12 +2,15 @@ import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
 import { MainContentComponent } from './components/main-content/main-content.component';
+import { InvoiceListingComponent } from '../invoices/components/invoice-listing/invoice-listing.component';
 
 const routes: Routes = [
   {path: '',
    component : DashboardComponent,
-   children: [{path : '',
-              component: MainContentComponent}]}
+   children: [
+     {path : '',         component: MainContentComponent},
+     {path : 'invoices', component: InvoiceListingComponent}
+  ]},
 ];
 
 @NgModule({
