@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-invoice-builder',
+  selector: 'dashboard-builder',
   template: `
   <app-side-nav></app-side-nav>
  `,
   // templateUrl: './invoice-builder.component.html',
 })
-export class InvoiceBuilderComponent implements OnInit {
+export class DashboardComponent implements OnInit {
 
   constructor() { }
 
