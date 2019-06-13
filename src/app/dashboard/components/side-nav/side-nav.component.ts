@@ -8,6 +8,11 @@ const MAX_WIDTH_BREAKPOINT = 720;
 })
 export class SideNavComponent implements OnInit {
 
+links = [
+  { name: 'Invoices', url: 'invoice'},
+  { name: 'Clients', url: 'clients'},
+  { name: 'Pokus', url: 'pokus'},
+]
 
   private mediaMatcher: MediaQueryList = matchMedia(`(max-width : ${MAX_WIDTH_BREAKPOINT}px)`);
   constructor() {
