@@ -8,6 +8,10 @@ import { MatListModule } from '@angular/material';
 import { MatCardModule } from '@angular/material';
 import { MatTableModule } from '@angular/material';
 import { MatMenuModule } from '@angular/material';
+import { MatFormFieldModule } from '@angular/material';
+import { MatInputModule } from '@angular/material';
+import { MatDatepickerModule } from '@angular/material';
+import { MatNativeDateModule } from '@angular/material';
 
 @NgModule({
   declarations: [],
@@ -20,7 +24,11 @@ import { MatMenuModule } from '@angular/material';
     MatListModule,
     MatCardModule,
     MatTableModule,
-    MatMenuModule
+    MatMenuModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   exports: [
     MatButtonModule,
@@ -30,7 +38,11 @@ import { MatMenuModule } from '@angular/material';
     MatListModule,
     MatCardModule,
     MatTableModule,
-    MatMenuModule
+    MatMenuModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 export class MaterialModule { }
