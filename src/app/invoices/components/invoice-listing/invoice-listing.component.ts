@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { InvoiceService } from '../../services/invoice.service';
+import { Invoice } from '../../models/invoice';
 
 
 export interface PeriodicElement {
@@ -31,14 +32,14 @@ const ELEMENT_DATA: PeriodicElement[] = [
 
 export class InvoiceListingComponent implements OnInit {
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['item', 'date', 'due', 'qty', 'rate', 'tax'];
+  dataSource: Invoice[] = [];
 
   constructor(private invoiceService: InvoiceService) { }
 
   ngOnInit() {
     this.invoiceService.getInvoices().subscribe( data => {
-      console.log(data);
+     this.dataSource = data;
     }, err => {
       console.error(err);
     });
