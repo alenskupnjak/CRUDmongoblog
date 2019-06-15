@@ -32,7 +32,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 
 export class InvoiceListingComponent implements OnInit {
 
-  displayedColumns: string[] = ['item', 'date', 'due', 'qty', 'rate', 'tax'];
+  displayedColumns: string[] = ['item', 'date', 'due', 'qty', 'rate', 'tax', 'action'];
   dataSource: Invoice[] = [];
 
   constructor(private invoiceService: InvoiceService) { }

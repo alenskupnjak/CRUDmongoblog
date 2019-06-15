@@ -9,9 +9,9 @@ const routes: Routes = [
   {path: '',
    component : DashboardComponent,
    children: [
-     {path : '',         component: MainContentComponent},
      {path : 'invoices', component: InvoiceListingComponent},
-     {path : 'clients',  component: ClientListingComponent}
+     {path : 'clients',  component: ClientListingComponent},
+     {path : '**',  redirectTo: 'invoices'}
   ]},
 ];
 
