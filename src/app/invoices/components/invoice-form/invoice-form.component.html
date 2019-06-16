@@ -1,30 +1,33 @@
 <mat-card>
+  <h3>Create Invoice</h3>
   {{ this.invoiceForm.value | json}}
   <form class="form-container" [formGroup]="invoiceForm" novalidate (ngSubmit)="onSubmit()">
-      <mat-form-field>
+      <mat-form-field color="accent">
         <input matInput placeholder="Item" formControlName="item">
       </mat-form-field>
 
-      <mat-form-field>
+      <mat-form-field color="accent">
           <input matInput [matDatepicker]="date" placeholder="Date" formControlName="date">
           <mat-datepicker-toggle matSuffix [for]="date"></mat-datepicker-toggle>
           <mat-datepicker #date></mat-datepicker>
       </mat-form-field>
 
-      <mat-form-field>
+      <mat-form-field color="accent">
           <input matInput [matDatepicker]="due" placeholder="Due" formControlName="due">
           <mat-datepicker-toggle matSuffix [for]="due"></mat-datepicker-toggle>
           <mat-datepicker #due></mat-datepicker>
       </mat-form-field>
 
 
-      <mat-form-field>
+      <mat-form-field color="accent">
         <input matInput placeholder="Qty" type="number" formControlName="qty">
       </mat-form-field>
-      <mat-form-field>
+
+      <mat-form-field color="accent">
         <input matInput placeholder="Tax" type="number" formControlName="tax">
       </mat-form-field>
-      <mat-form-field>
+
+      <mat-form-field color="accent">
         <input matInput placeholder="Rate" type="number" formControlName="rate">
       </mat-form-field>
       <div>
