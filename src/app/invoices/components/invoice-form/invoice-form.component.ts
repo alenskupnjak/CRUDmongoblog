@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { InvoiceService } from '../../services/invoice.service';
+import { MatSnackBar,  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition } from '@angular/material';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -11,10 +14,14 @@ import { InvoiceService } from '../../services/invoice.service';
 export class InvoiceFormComponent implements OnInit {
 
  invoiceForm: FormGroup;
+ horizontalPosition: MatSnackBarHorizontalPosition = 'start';
+ verticalPosition: MatSnackBarVerticalPosition = 'top';
 
   constructor(
     private fb: FormBuilder,
-    private invoiceService: InvoiceService) { }
+    private invoiceService: InvoiceService,
+    private snackBar: MatSnackBar,
+    private router: Router) { }
 
   ngOnInit() {
     this.createForm();
@@ -35,11 +42,27 @@ export class InvoiceFormComponent implements OnInit {
     console.log(this.invoiceForm.value);
     this.invoiceService.createInvoice(this.invoiceForm.value).subscribe(
       data => {
-        this.invoiceForm.reset();
-      console.log(data);
+        console.log(data);
+        this.snackBar.open('Invoice created', 'Success', {
+          duration: 3000,
+          horizontalPosition: this.horizontalPosition
+        });
+        // this.router.navigate(['dasboard', 'incoices']);
+        this.router.navigate(['dasboard/incoices']);
+        // this.invoiceForm.reset();
     }, err => {
-      console.error(err);
+      this.errorHandler(err, 'Ne mogu snimiti podatak');
     });
   }
 
+  private errorHandler(err, message) {
+    console.error(err);
+    this.snackBar.open(message, 'Error', {
+      duration: 2000
+    });
+  }
+
+
 }
+
+
