@@ -1,5 +1,6 @@
 export class Invoice {
-  _id: number;
+  // tslint:disable-next-line:variable-name
+  _id: string;
   item: string;
   qty: number;
   date: Date;

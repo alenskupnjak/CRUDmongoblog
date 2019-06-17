@@ -43,7 +43,10 @@ export class InvoiceListingComponent implements OnInit {
       });
   }
 
-
+  editirajFormu(id) {
+    this.router.navigate(['dashboard', 'invoices', id]);
+  }
+  
   saveForm() {
     this.router.navigate(['dashboard', 'invoices', 'new']);
   }

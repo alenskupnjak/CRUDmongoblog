@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { InvoiceService } from '../../services/invoice.service';
-import { MatSnackBar,  MatSnackBarHorizontalPosition,
-  MatSnackBarVerticalPosition } from '@angular/material';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar,
+         MatSnackBarHorizontalPosition,
+         MatSnackBarVerticalPosition } from '@angular/material';
+import { Invoice } from '../../models/invoice';
 
 
 @Component({
@@ -12,7 +15,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./invoice-form.component.scss']
 })
 export class InvoiceFormComponent implements OnInit {
-
+ private invoice: Invoice;
  invoiceForm: FormGroup;
  horizontalPosition: MatSnackBarHorizontalPosition = 'start';
  verticalPosition: MatSnackBarVerticalPosition = 'top';
@@ -21,39 +24,67 @@ export class InvoiceFormComponent implements OnInit {
     private fb: FormBuilder,
     private invoiceService: InvoiceService,
     private snackBar: MatSnackBar,
-    private router: Router) { }
+    private router: Router,
+    private jednaRouta: ActivatedRoute) { }
 
-  ngOnInit() {
-    this.createForm();
-  }
+    createForm() {
+      this.invoiceForm = this.fb.group({
+        item: ['', Validators.required],
+        date: ['', Validators.required],
+        due: ['', Validators.required],
+        qty: ['', Validators.required],
+        rate: '',
+        tax: ''
+      });
+    }
 
-  createForm() {
-    this.invoiceForm = this.fb.group({
-      item: ['', Validators.required],
-      date: ['', Validators.required],
-      due: ['', Validators.required],
-      qty: ['', Validators.required],
-      rate: '',
-      tax: ''
-    });
-  }
+    ngOnInit() {
+      this.createForm();
+      this.setInvoiceForm();
+    }
 
   onSubmit() {
-    console.log(this.invoiceForm.value);
-    this.invoiceService.createInvoice(this.invoiceForm.value).subscribe(
-      data => {
-        console.log(data);
-        this.snackBar.open('Invoice created', 'Success', {
-          duration: 3000,
-          horizontalPosition: this.horizontalPosition
-        });
-        // this.router.navigate(['dasboard', 'incoices']);
-        this.router.navigate(['dasboard/incoices']);
-        // this.invoiceForm.reset();
-    }, err => {
-      this.errorHandler(err, 'Ne mogu snimiti podatak');
-    });
+    // invoice je undefine ako je želimo novi zapis novi zapis
+    if (this.invoice) {
+    this.invoiceService.updateInvoice(this.invoice._id , this.invoiceForm.value)
+    .subscribe(data => {
+      this.snackBar.open('Invoice updated', 'OK',
+      { duration: 2000 }
+      );
+    }, err => this.errorHandler(err, 'Nisam uspio osvježiti podatak'));
+    this.router.navigate(['dasboard', 'invoices']);
+
+    } else {
+      console.log(this.invoiceForm.value);
+      this.invoiceService.createInvoice(this.invoiceForm.value).subscribe(
+        data => {
+          console.log(data);
+          this.snackBar.open('Invoice created', 'Success', {
+            duration: 3000,
+            horizontalPosition: this.horizontalPosition
+          });
+          this.router.navigate(['dasboard', 'invoices']);
+          // this.invoiceForm.reset();
+      }, err => {
+        this.errorHandler(err, 'Ne mogu snimiti podatak');
+      });
+    }
   }
+
+ setInvoiceForm() {
+  this.jednaRouta.params.
+     subscribe( data => {
+        const id = data['id'];
+        if (!id) { return; }
+        this.invoiceService.editInvoice(id)
+        .subscribe( sviPodaciForme => {
+          this.invoice = sviPodaciForme;
+          this.invoiceForm.patchValue(this.invoice);
+        }, err => this.errorHandler(err, 'Nisam nasao zapis'));
+     });
+ }
+
+
 
   private errorHandler(err, message) {
     console.error(err);

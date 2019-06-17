@@ -17,12 +17,20 @@ export class InvoiceService {
     return this.httpClient.get<Invoice[]>(`${BASE_URL}/invoices`);
   }
 
+  editInvoice(id: string): Observable<Invoice> {
+    return this.httpClient.get<Invoice>(`${BASE_URL}/invoices/${id}`);
+  }
+
   createInvoice(body: Invoice): Observable<Invoice> {
    return this.httpClient.post<Invoice>(`${BASE_URL}/invoices`, body);
   }
 
   deleteInvoice(id: string): Observable<Invoice> {
    return this.httpClient.delete<Invoice>(`${BASE_URL}/invoices/${id}`);
+  }
+
+  updateInvoice(id: string, body: Invoice): Observable<Invoice> {
+   return this.httpClient.put<Invoice>(`${BASE_URL}/invoices/${id}`, body);
   }
 
 }
