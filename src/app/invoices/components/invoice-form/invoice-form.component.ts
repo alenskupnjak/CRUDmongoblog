@@ -51,8 +51,8 @@ export class InvoiceFormComponent implements OnInit {
       this.snackBar.open('Invoice updated', 'OK',
       { duration: 2000 }
       );
+      this.router.navigate(['dasboard', 'invoices']);
     }, err => this.errorHandler(err, 'Nisam uspio osvježiti podatak'));
-    this.router.navigate(['dasboard', 'invoices']);
 
     } else {
       console.log(this.invoiceForm.value);
