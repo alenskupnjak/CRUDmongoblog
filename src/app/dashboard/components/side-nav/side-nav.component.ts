@@ -15,6 +15,7 @@ links = [
 ];
 
   private mediaMatcher: MediaQueryList = matchMedia(`(max-width : ${MAX_WIDTH_BREAKPOINT}px)`);
+  
   constructor() {
     // this.mediaMatcher.addListener((mql) => {    ovo je morao na tačaju napraviti meni radi
     //   zone.run(()  => this.mediaMatcher = mql)

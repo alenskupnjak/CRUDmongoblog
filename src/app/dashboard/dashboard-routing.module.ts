@@ -7,8 +7,7 @@ import { ClientListingComponent } from '../clients/components/client-listing/cli
 import { InvoiceFormComponent } from '../invoices/components/invoice-form/invoice-form.component';
 
 const routes: Routes = [
-  {path: '',
-   component : DashboardComponent,
+  {path: '', component : DashboardComponent,
    children: [
      {path : 'invoices', component: InvoiceListingComponent},
      {path : 'invoices/new',  component: InvoiceFormComponent},

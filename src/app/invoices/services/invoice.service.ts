@@ -9,10 +9,7 @@ const BASE_URL = 'http://localhost:3000/api';
 @Injectable({providedIn: 'root'})
 
 
-
-
 export class InvoiceService {
-
 
   constructor(private httpClient: HttpClient) { }
 
