@@ -8,3 +8,11 @@ export class Invoice {
   rate: number;
   tax: number;
 }
+
+export class InvoicePaginationRsp {
+  docs: Invoice[];
+  total: number;
+  pages: number;
+  page: number;
+  limit: number;
+}

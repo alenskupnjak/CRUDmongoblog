@@ -28,13 +28,17 @@ export class InvoiceListingComponent implements OnInit {
 
 
   ngOnInit() {
+    this.populatedInvoices();
+  }
 
+  private populatedInvoices() {
     this.invoiceService.getInvoices().subscribe( data => {
-     this.dataSource = data;
-     this.brojStranica = data.length;
-    }, err => {
-      this.errorHandler(err, 'Ucitavanje nije uspjelo');
-    });
+      this.dataSource = data.docs;
+      console.log(data);
+      this.brojStranica = data.total;
+     }, err => {
+       this.errorHandler(err, 'Ucitavanje nije uspjelo');
+     });
   }
 
   deleteZapis(id) {
