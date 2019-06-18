@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { InvoiceService } from '../../services/invoice.service';
 import { Invoice } from '../../models/invoice';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatPaginator } from '@angular/material';
 import { remove } from 'lodash';
+import { InternalNgModuleRef } from '@angular/core/src/linker/ng_module_factory';
+import { InternalViewRef } from '@angular/core/src/linker/view_ref';
 
 @Component({
   selector: 'app-invoice-listing',
@@ -15,15 +17,21 @@ export class InvoiceListingComponent implements OnInit {
 
   displayedColumns: string[] = ['item', 'date', 'due', 'qty', 'rate', 'tax', 'action'];
   dataSource: Invoice[] = [];
+  brojStranica = 0;
 
   constructor(
     private invoiceService: InvoiceService,
     private router: Router,
     private snackBar: MatSnackBar) { }
 
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+
+
   ngOnInit() {
+
     this.invoiceService.getInvoices().subscribe( data => {
      this.dataSource = data;
+     this.brojStranica = data.length;
     }, err => {
       this.errorHandler(err, 'Ucitavanje nije uspjelo');
     });
@@ -46,7 +54,7 @@ export class InvoiceListingComponent implements OnInit {
   editirajFormu(id) {
     this.router.navigate(['dashboard', 'invoices', id]);
   }
-  
+
   saveForm() {
     this.router.navigate(['dashboard', 'invoices', 'new']);
   }
