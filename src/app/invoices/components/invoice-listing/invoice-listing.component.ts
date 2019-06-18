@@ -4,6 +4,8 @@ import { Invoice } from '../../models/invoice';
 import { Router } from '@angular/router';
 import { MatSnackBar, MatPaginator } from '@angular/material';
 import { remove } from 'lodash';
+// tslint:disable-next-line:import-blacklist
+// import 'rxjs/Rx';
 import { InternalNgModuleRef } from '@angular/core/src/linker/ng_module_factory';
 import { InternalViewRef } from '@angular/core/src/linker/view_ref';
 
@@ -24,20 +26,29 @@ export class InvoiceListingComponent implements OnInit {
     private router: Router,
     private snackBar: MatSnackBar) { }
 
-    @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
 
-  ngOnInit() {
-    this.populatedInvoices();
+   ngOnInit() {
+    this.paginator
+     .page
+     .subscribe( data => {
+      this.invoiceService
+      .getInvoices({page: ++data.pageIndex, perPage: data.pageSize})
+      .subscribe( data => {
+        this.dataSource = data.docs;
+        this.brojStranica = data.total;
+        });
+    }, err =>  this.errorHandler(err, 'Ucitavanje nije uspjelo'));
+         this.populatedInvoices();
   }
 
   private populatedInvoices() {
-    this.invoiceService.getInvoices().subscribe( data => {
-      this.dataSource = data.docs;
-      console.log(data);
-      this.brojStranica = data.total;
-     }, err => {
-       this.errorHandler(err, 'Ucitavanje nije uspjelo');
+    this.invoiceService.getInvoices({page: 1, perPage: 10})
+    .subscribe( data => {
+        this.dataSource = data.docs;
+        this.brojStranica = data.total;
+     }, err => { this.errorHandler(err, 'Ucitavanje nije uspjelo');
      });
   }
 
