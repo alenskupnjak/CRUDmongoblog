@@ -5,6 +5,9 @@ import { MainContentComponent } from './components/main-content/main-content.com
 import { InvoiceListingComponent } from '../invoices/components/invoice-listing/invoice-listing.component';
 import { ClientListingComponent } from '../clients/components/client-listing/client-listing.component';
 import { InvoiceFormComponent } from '../invoices/components/invoice-form/invoice-form.component';
+import { HeroComponent } from '../hero/hero.component';
+import { HeroListComponent } from '../hero/hero-list/hero-list.component';
+import { HeroDetailComponent } from '../hero/hero-detail/hero-detail.component';
 
 const routes: Routes = [
   {path: '', component : DashboardComponent,
@@ -13,6 +16,7 @@ const routes: Routes = [
      {path : 'invoices/new',  component: InvoiceFormComponent},
      {path : 'invoices/:id',  component: InvoiceFormComponent},
      {path : 'clients',  component: ClientListingComponent},
+    //  {path : 'hero',  component: HeroDetailComponent},
      {path : '**',  redirectTo: 'invoices'}
   ]},
 ];

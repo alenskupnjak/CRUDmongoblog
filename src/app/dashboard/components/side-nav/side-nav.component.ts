@@ -11,11 +11,11 @@ export class SideNavComponent implements OnInit {
 links = [
   { name: 'Invoices', url: 'invoices'},
   { name: 'Clients',  url: 'clients'},
-  { name: 'Pokus',    url: 'pokus'},
+  { name: 'Hero',    url: 'hero'},
 ];
 
   private mediaMatcher: MediaQueryList = matchMedia(`(max-width : ${MAX_WIDTH_BREAKPOINT}px)`);
-  
+
   constructor() {
     // this.mediaMatcher.addListener((mql) => {    ovo je morao na tačaju napraviti meni radi
     //   zone.run(()  => this.mediaMatcher = mql)

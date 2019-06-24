@@ -63,7 +63,7 @@ export class InvoiceFormComponent implements OnInit {
             duration: 3000,
             horizontalPosition: this.horizontalPosition
           });
-          this.router.navigate(['dasboard', 'invoices']);
+          // this.router.navigate(['dasboard', 'invoices']);
           // this.invoiceForm.reset();
       }, err => {
         this.errorHandler(err, 'Ne mogu snimiti podatak');

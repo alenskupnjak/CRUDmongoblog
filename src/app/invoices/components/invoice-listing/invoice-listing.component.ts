@@ -17,9 +17,11 @@ import { InternalViewRef } from '@angular/core/src/linker/view_ref';
 
 export class InvoiceListingComponent implements OnInit {
 
-  displayedColumns: string[] = ['item', 'date', 'due', 'qty', 'rate', 'tax', 'action'];
+  displayedColumns: string[] = ['item', 'date', 'due', 'qty', 'rate', 'tax', 'bris', 'action'];
   dataSource: Invoice[] = [];
   brojStranica = 0;
+  usnimavanje = false;
+  listaZaBrisanje: any [] = [];
 
   constructor(
     private invoiceService: InvoiceService,
@@ -30,6 +32,7 @@ export class InvoiceListingComponent implements OnInit {
 
 
    ngOnInit() {
+     this.usnimavanje = true;
     this.paginator
      .page
      .subscribe( data => {
@@ -38,6 +41,7 @@ export class InvoiceListingComponent implements OnInit {
       .subscribe( data => {
         this.dataSource = data.docs;
         this.brojStranica = data.total;
+        this.usnimavanje = false;
         });
     }, err =>  this.errorHandler(err, 'Ucitavanje nije uspjelo'));
          this.populatedInvoices();
@@ -48,6 +52,7 @@ export class InvoiceListingComponent implements OnInit {
     .subscribe( data => {
         this.dataSource = data.docs;
         this.brojStranica = data.total;
+        this.usnimavanje = false;
      }, err => { this.errorHandler(err, 'Ucitavanje nije uspjelo');
      });
   }
@@ -80,6 +85,35 @@ export class InvoiceListingComponent implements OnInit {
     this.snackBar.open(message, 'Error', {
       duration: 2000
     });
+  }
+
+  obrisiVise() {
+    let brojbrisanih = this.listaZaBrisanje.length;
+    if(this.listaZaBrisanje.length === 0) return;
+       this.listaZaBrisanje.forEach( data => {
+         this.deleteZapis(data);
+        });
+     this.listaZaBrisanje = [];
+     this.brojStranica = this.brojStranica - brojbrisanih
+  }
+
+
+  pripremiZaBrisanje(key) {
+    let duljinaZapisa = this.listaZaBrisanje.length;
+    let trazim = -1;
+    this.listaZaBrisanje.forEach((data, index) => {
+      console.log ( `index=${index}` );
+      if (data === key) {
+        trazim = index ;
+        console.log(data, key);
+        console.log(`Naso ga`);
+      }
+    });
+    if (trazim === -1) this.listaZaBrisanje.push(key)
+    if (trazim !== -1 ) this.listaZaBrisanje.splice(trazim, 1);
+    console.log(`Kraj`);
+    console.log(this.listaZaBrisanje);
+    return this.listaZaBrisanje;
   }
 
 }
