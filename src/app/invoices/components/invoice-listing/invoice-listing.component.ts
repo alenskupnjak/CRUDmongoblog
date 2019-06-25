@@ -33,40 +33,55 @@ export class InvoiceListingComponent implements OnInit, AfterViewInit {
 
 
    ngOnInit() {
-
   }
 
 ngAfterViewInit(): void {
   this.usnimavanje = true;
-  this.paginator
-   .page
-   .subscribe( data => {
-    this.invoiceService
-    .getInvoices({page: data.pageIndex, perPage: data.pageSize})
+  this.paginator.page.subscribe( () => {
+    return this.invoiceService.getInvoices({
+      page: this.paginator.pageIndex,
+      perPage: this.paginator.pageSize,
+      sortField: this.sort.active,
+      sortDir: this.sort.direction
+    })
     .subscribe( data => {
       this.dataSource = data.docs;
       this.brojStranica = data.total;
-      this.usnimavanje = false;
+      // this.usnimavanje = false;
       });
   }, err =>  this.errorHandler(err, 'Ucitavanje nije uspjelo'));
-  this.sort.sortChange.subscribe(data => {
-    debugger;
-    console.log(data);
 
+  // this.usnimavanje = true;
+  this.sort.sortChange.subscribe(() => {
+    return this.invoiceService.getInvoices({
+      page: this.paginator.pageIndex,
+      perPage: this.paginator.pageSize,
+      sortField: this.sort.active,
+      sortDir: this.sort.direction
+    })
+    .subscribe( data => {
+      this.dataSource = data.docs;
+      this.brojStranica = data.total;
+      // this.usnimavanje = false;
+      });
   });
   this.populatedInvoices();
 }
 
-
-
   private populatedInvoices() {
-    this.invoiceService.getInvoices({page: 1, perPage: 10})
+    this.invoiceService.getInvoices({
+      page: this.paginator.pageIndex,
+      perPage: this.paginator.pageSize,
+      sortField: this.sort.active,
+      sortDir: this.sort.direction
+    })
     .subscribe( data => {
         this.dataSource = data.docs;
         this.brojStranica = data.total;
-        this.usnimavanje = false;
-     }, err => { this.errorHandler(err, 'Ucitavanje nije uspjelo');
-     });
+      }, err => { this.errorHandler(err, 'Ucitavanje nije uspjelo');
+    });
+
+    this.usnimavanje = false;
   }
 
   deleteZapis(id) {

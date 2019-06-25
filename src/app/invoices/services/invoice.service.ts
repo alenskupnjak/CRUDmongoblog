@@ -16,8 +16,14 @@ export class InvoiceService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getInvoices({page, perPage}): Observable<InvoicePaginationRsp> {
-    return this.httpClient.get<InvoicePaginationRsp>(`${BASE_URL}/invoices?page=${page + 1}&perPage=${perPage}`);
+  getInvoices({page, perPage, sortField, sortDir}): Observable<InvoicePaginationRsp> {
+    let queryString = `${BASE_URL}/invoices?page=${page + 1}&perPage=${perPage}`;
+
+    if (sortField && sortDir) {
+      queryString = `${queryString}&sortField=${sortField}&sortDir=${sortDir}`;
+    }
+
+    return this.httpClient.get<InvoicePaginationRsp>(queryString);
   }
 
   editInvoice(id: string): Observable<Invoice> {
