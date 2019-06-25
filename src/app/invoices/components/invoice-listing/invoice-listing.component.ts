@@ -88,9 +88,9 @@ ngAfterViewInit(): void {
     this.invoiceService.deleteInvoice(id).subscribe(
       data => {
        console.log(data);
-       remove(this.dataSource, (item) => { return item._id === data._id});
+       remove(this.dataSource, (item) => { return item._id === data._id });
        this.dataSource = [...this.dataSource];
-        this.snackBar.open('Invoices obrisan', 'ok', {
+       this.snackBar.open('Invoices obrisan', 'ok', {
           duration: 3000
         });
       }, err => {
@@ -115,18 +115,18 @@ ngAfterViewInit(): void {
   }
 
   obrisiVise() {
-    let brojbrisanih = this.listaZaBrisanje.length;
-    if(this.listaZaBrisanje.length === 0) return;
-       this.listaZaBrisanje.forEach( data => {
+    const brojbrisanih = this.listaZaBrisanje.length;
+    if (this.listaZaBrisanje.length === 0)  {return;}
+    this.listaZaBrisanje.forEach( data => {
          this.deleteZapis(data);
         });
-     this.listaZaBrisanje = [];
-     this.brojStranica = this.brojStranica - brojbrisanih
+    this.listaZaBrisanje = [];
+    this.brojStranica = this.brojStranica - brojbrisanih;
   }
 
 
   pripremiZaBrisanje(key) {
-    let duljinaZapisa = this.listaZaBrisanje.length;
+    // let duljinaZapisa = this.listaZaBrisanje.length;
     let trazim = -1;
     this.listaZaBrisanje.forEach((data, index) => {
       console.log ( `index=${index}` );
@@ -136,11 +136,17 @@ ngAfterViewInit(): void {
         console.log(`Naso ga`);
       }
     });
-    if (trazim === -1) this.listaZaBrisanje.push(key)
-    if (trazim !== -1 ) this.listaZaBrisanje.splice(trazim, 1);
+    if (trazim === -1) { this.listaZaBrisanje.push(key); }
+    if (trazim !== -1 ) { this.listaZaBrisanje.splice(trazim, 1); }
     console.log(`Kraj`);
     console.log(this.listaZaBrisanje);
     return this.listaZaBrisanje;
+  }
+
+  filterText(event: any) {
+
+    console.log(event.target.value );
+
   }
 
 }

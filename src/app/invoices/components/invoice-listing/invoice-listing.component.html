@@ -1,5 +1,7 @@
 <mat-toolbar>
-  <h1>Invoices</h1>
+  <mat-form-field color="accent">
+    <input matInput (keyup)="filterText($event)" placeholder="Filter">
+  </mat-form-field>
   <div class="menu-bar">
     <button mat-raised-button color="primary" (click)="obrisiVise()">Obriši više</button>
     <button mat-raised-button color="accent" class="obrisiVise" (click)="saveForm()">New Invoice</button>
