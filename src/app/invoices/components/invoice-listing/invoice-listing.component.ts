@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { InvoiceService } from '../../services/invoice.service';
 import { Invoice } from '../../models/invoice';
 import { Router } from '@angular/router';
-import { MatSnackBar, MatPaginator } from '@angular/material';
+import { MatSnackBar, MatPaginator, MatSort } from '@angular/material';
 import { remove } from 'lodash';
 // tslint:disable-next-line:import-blacklist
 // import 'rxjs/Rx';
@@ -15,7 +15,7 @@ import { InternalViewRef } from '@angular/core/src/linker/view_ref';
   styleUrls: ['./invoice-listing.component.scss']
 })
 
-export class InvoiceListingComponent implements OnInit {
+export class InvoiceListingComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['item', 'date', 'due', 'qty', 'rate', 'tax', 'bris', 'action'];
   dataSource: Invoice[] = [];
@@ -29,23 +29,35 @@ export class InvoiceListingComponent implements OnInit {
     private snackBar: MatSnackBar) { }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
 
    ngOnInit() {
-     this.usnimavanje = true;
-    this.paginator
-     .page
-     .subscribe( data => {
-      this.invoiceService
-      .getInvoices({page: ++data.pageIndex, perPage: data.pageSize})
-      .subscribe( data => {
-        this.dataSource = data.docs;
-        this.brojStranica = data.total;
-        this.usnimavanje = false;
-        });
-    }, err =>  this.errorHandler(err, 'Ucitavanje nije uspjelo'));
-         this.populatedInvoices();
+
   }
+
+ngAfterViewInit(): void {
+  this.usnimavanje = true;
+  this.paginator
+   .page
+   .subscribe( data => {
+    this.invoiceService
+    .getInvoices({page: data.pageIndex, perPage: data.pageSize})
+    .subscribe( data => {
+      this.dataSource = data.docs;
+      this.brojStranica = data.total;
+      this.usnimavanje = false;
+      });
+  }, err =>  this.errorHandler(err, 'Ucitavanje nije uspjelo'));
+  this.sort.sortChange.subscribe(data => {
+    debugger;
+    console.log(data);
+
+  });
+  this.populatedInvoices();
+}
+
+
 
   private populatedInvoices() {
     this.invoiceService.getInvoices({page: 1, perPage: 10})

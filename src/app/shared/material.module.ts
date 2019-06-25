@@ -15,6 +15,7 @@ import { MatNativeDateModule } from '@angular/material';
 import { MatPaginatorModule } from '@angular/material';
 import { MatProgressSpinnerModule } from '@angular/material';
 import { MatCheckboxModule } from '@angular/material';
+import { MatSortModule } from '@angular/material';
 
 @NgModule({
   declarations: [],
@@ -35,7 +36,8 @@ import { MatCheckboxModule } from '@angular/material';
     MatSnackBarModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSortModule
   ],
   exports: [
     MatButtonModule,
@@ -53,7 +55,8 @@ import { MatCheckboxModule } from '@angular/material';
     MatSnackBarModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSortModule
 
   ]
 })

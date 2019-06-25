@@ -9,7 +9,7 @@
 .table-container {
   display: flex;
   flex-direction: column;
-  max-height: 500px;
+  max-height: 800px;
   min-width: 300px;
   position: relative;
 }
@@ -27,5 +27,5 @@
 }
 .mat-table {
   overflow: auto;
-  max-height: 500px;
+  max-height: 800px;
 }

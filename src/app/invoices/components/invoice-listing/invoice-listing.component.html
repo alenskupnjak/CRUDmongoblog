@@ -9,52 +9,51 @@
   <mat-spinner *ngIf="usnimavanje"></mat-spinner>
 </div>
 
-<div class="table-container mat-elevation-z10">
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z10">
+<div class="table-container mat-elevation-z10" matSort>
+<mat-table #table [dataSource]="dataSource" class="mat-elevation-z10">
 
     <ng-container matColumnDef="item">
-      <th mat-header-cell *matHeaderCellDef> Item </th>
-      <td mat-cell *matCellDef="let element"> {{element.item}} </td>
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Item </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.item}} </mat-cell>
     </ng-container>
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="date">
-      <th mat-header-cell *matHeaderCellDef> Date </th>
-      <td mat-cell *matCellDef="let element"> {{element.date | date}}</td>
+    <ng-container matColumnDef="date" >
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Date </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.date | date}}</mat-cell>
     </ng-container>
 
     <!-- Weight Column -->
-    <ng-container matColumnDef="due">
-      <th mat-header-cell *matHeaderCellDef> Due </th>
-      <td mat-cell *matCellDef="let element"> {{element.due | date}} </td>
+    <ng-container matColumnDef="due" >
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Due </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.due | date}} </mat-cell>
     </ng-container>
 
     <!-- Symbol Column -->
-    <ng-container matColumnDef="qty">
-      <th mat-header-cell *matHeaderCellDef> Qty </th>
-      <td mat-cell *matCellDef="let element"> {{element.qty}} </td>
+    <ng-container matColumnDef="qty" >
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Qty </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.qty}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="rate">
-      <th mat-header-cell *matHeaderCellDef> Rate </th>
-      <td mat-cell *matCellDef="let element"> {{element.rate}} </td>
+      <mat-header-cell *matHeaderCellDef> Rate </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.rate}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="tax">
-      <th mat-header-cell *matHeaderCellDef> Tax </th>
-      <td mat-cell *matCellDef="let element"> {{element.tax}} </td>
+      <mat-header-cell *matHeaderCellDef> Tax </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.tax}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="bris">
-        <th mat-header-cell *matHeaderCellDef> Brisi </th>
-        <td mat-cell *matCellDef="let element"> <mat-checkbox (click)="pripremiZaBrisanje(element._id)"></mat-checkbox></td>
+        <mat-header-cell *matHeaderCellDef> Brisi </mat-header-cell>
+        <mat-cell *matCellDef="let element"> <mat-checkbox (click)="pripremiZaBrisanje(element._id)"></mat-checkbox></mat-cell>
     </ng-container>
 
 
 
 
     <ng-container matColumnDef="action">
-      <td mat-header-cell *matHeaderCellDef> Action </td>
+      <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
       <mat-cell *matCellDef="let element">
            <button mat-icon-button [matMenuTriggerFor]="menuVeza">
              <mat-icon>more_vert</mat-icon>
@@ -76,9 +75,9 @@
       </mat-cell>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
 
   <mat-paginator
                 pageIndex='0'
