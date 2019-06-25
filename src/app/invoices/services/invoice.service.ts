@@ -5,7 +5,6 @@ import { Invoice } from '../models/invoice';
 import { InvoicePaginationRsp } from '../models/invoice';
 
 const BASE_URL = 'http://localhost:3000/api';
-// const BASE_URL = 'http://localhost:5000/api';
 // const BASE_URL = 'https://skup-crudmongo.herokuapp.com/api';
 
 
@@ -16,11 +15,14 @@ export class InvoiceService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getInvoices({page, perPage, sortField, sortDir}): Observable<InvoicePaginationRsp> {
+  getInvoices({page, perPage, sortField, sortDir, filter}): Observable<InvoicePaginationRsp> {
     let queryString = `${BASE_URL}/invoices?page=${page + 1}&perPage=${perPage}`;
 
     if (sortField && sortDir) {
       queryString = `${queryString}&sortField=${sortField}&sortDir=${sortDir}`;
+    }
+    if (filter) {
+      queryString = `${queryString}&filter=${filter}`;
     }
 
     return this.httpClient.get<InvoicePaginationRsp>(queryString);

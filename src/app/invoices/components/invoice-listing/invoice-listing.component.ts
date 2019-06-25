@@ -42,7 +42,8 @@ ngAfterViewInit(): void {
       page: this.paginator.pageIndex,
       perPage: this.paginator.pageSize,
       sortField: this.sort.active,
-      sortDir: this.sort.direction
+      sortDir: this.sort.direction,
+      filter: ''
     })
     .subscribe( data => {
       this.dataSource = data.docs;
@@ -57,7 +58,8 @@ ngAfterViewInit(): void {
       page: this.paginator.pageIndex,
       perPage: this.paginator.pageSize,
       sortField: this.sort.active,
-      sortDir: this.sort.direction
+      sortDir: this.sort.direction,
+      filter: ''
     })
     .subscribe( data => {
       this.dataSource = data.docs;
@@ -73,7 +75,8 @@ ngAfterViewInit(): void {
       page: this.paginator.pageIndex,
       perPage: this.paginator.pageSize,
       sortField: this.sort.active,
-      sortDir: this.sort.direction
+      sortDir: this.sort.direction,
+      filter: ''
     })
     .subscribe( data => {
         this.dataSource = data.docs;
@@ -116,7 +119,7 @@ ngAfterViewInit(): void {
 
   obrisiVise() {
     const brojbrisanih = this.listaZaBrisanje.length;
-    if (this.listaZaBrisanje.length === 0)  {return;}
+    if (this.listaZaBrisanje.length === 0)  { return; }
     this.listaZaBrisanje.forEach( data => {
          this.deleteZapis(data);
         });
@@ -143,10 +146,22 @@ ngAfterViewInit(): void {
     return this.listaZaBrisanje;
   }
 
-  filterText(event: any) {
-
-    console.log(event.target.value );
-
+  filterText(filterValue: string) {
+    this.usnimavanje = true;
+    filterValue = filterValue.trim();
+    this.paginator.pageIndex = 0;
+    this.invoiceService.getInvoices({
+      page: this.paginator.pageIndex,
+      perPage: this.paginator.pageSize,
+      sortField: this.sort.active,
+      sortDir: this.sort.direction,
+      filter: filterValue
+    })
+    .subscribe(data => {
+      this.dataSource = data.docs;
+      this.brojStranica = data.total;
+      this.usnimavanje = false;
+    }, err => this.errorHandler(err, ' Neuspjesno filtriranje'));
   }
 
 }
