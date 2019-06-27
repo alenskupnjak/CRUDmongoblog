@@ -8,6 +8,7 @@ import { remove } from 'lodash';
 // import 'rxjs/Rx';
 import { InternalNgModuleRef } from '@angular/core/src/linker/ng_module_factory';
 import { InternalViewRef } from '@angular/core/src/linker/view_ref';
+import { DialogService } from '../../../shared/dialog.service';
 
 @Component({
   selector: 'app-invoice-listing',
@@ -26,7 +27,8 @@ export class InvoiceListingComponent implements OnInit, AfterViewInit {
   constructor(
     private invoiceService: InvoiceService,
     private router: Router,
-    private snackBar: MatSnackBar) { }
+    private snackBar: MatSnackBar,
+    private dialogService: DialogService) { }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -88,17 +90,21 @@ ngAfterViewInit(): void {
   }
 
   deleteZapis(id) {
-    this.invoiceService.deleteInvoice(id).subscribe(
-      data => {
-       console.log(data);
-       remove(this.dataSource, (item) => { return item._id === data._id });
-       this.dataSource = [...this.dataSource];
-       this.snackBar.open('Invoices obrisan', 'ok', {
-          duration: 3000
-        });
-      }, err => {
-       this.errorHandler(err, 'Brisanje nije uspjelo');
-      });
+    this.dialogService.openConfirmDialog('Are you sure to delete this record ?')
+    .afterClosed().subscribe(dat => {
+      if (dat) {
+        this.invoiceService.deleteInvoice(id).subscribe(
+           data => {
+             remove(this.dataSource, (item) => { return item._id === data._id });
+              this.dataSource = [...this.dataSource];
+              this.snackBar.open('Invoices obrisan', 'ok', {
+              duration: 3000
+            });
+         }, err => {
+          this.errorHandler(err, 'Brisanje nije uspjelo');
+         });
+     }
+    });
   }
 
   editirajFormu(id) {
@@ -120,9 +126,13 @@ ngAfterViewInit(): void {
   obrisiVise() {
     const brojbrisanih = this.listaZaBrisanje.length;
     if (this.listaZaBrisanje.length === 0)  { return; }
+
     this.listaZaBrisanje.forEach( data => {
          this.deleteZapis(data);
         });
+
+
+
     this.listaZaBrisanje = [];
     this.brojStranica = this.brojStranica - brojbrisanih;
   }
