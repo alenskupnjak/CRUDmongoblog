@@ -2,10 +2,10 @@
 
 <h3>Hero Details</h3>
 <p> Hero Id {{hero.id}}</p>
-<p> {{hero.name | uppercase}} </p>
-<p> {{hero.salary | currency}} </p>
-<p> {{hero.rating | number}} </p>
-<p> {{hero.joinDate | date:'shortDate'}} </p>
+<p> hero1.name {{hero.name | uppercase}} </p>
+<p> hero1.salary {{hero.salary | currency}} </p>
+<p> hero1.rating {{hero.rating | number}} </p>
+<p> hero1.joinDate {{hero.joinDate | date:'shortDate'}} </p>
 
 
 <button class="btn btn-danger" (click) ="deleteHero(2)">Obriši Hero</button>

@@ -12,6 +12,8 @@ links = [
   { name: 'Invoices', url: 'invoices'},
   { name: 'Clients',  url: 'clients'},
   { name: 'Hero',    url: 'hero'},
+  { name: 'HeroList',    url: 'heroList'},
+  { name: 'HeroDetail',    url: 'heroDetail'},
 ];
 
   private mediaMatcher: MediaQueryList = matchMedia(`(max-width : ${MAX_WIDTH_BREAKPOINT}px)`);

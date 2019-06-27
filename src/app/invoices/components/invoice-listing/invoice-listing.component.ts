@@ -128,7 +128,11 @@ ngAfterViewInit(): void {
     if (this.listaZaBrisanje.length === 0)  { return; }
 
     this.listaZaBrisanje.forEach( data => {
+
          this.deleteZapis(data);
+
+
+         
         });
 
 

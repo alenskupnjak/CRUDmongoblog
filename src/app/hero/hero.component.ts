@@ -1,3 +1,4 @@
+import { NgModule} from '@angular/core';
 import {Component } from '@angular/core';
 import { HeroService } from '../shared/hero.service';
 
@@ -11,6 +12,7 @@ import { HeroService } from '../shared/hero.service';
     background-color: blue;
               }`]
 })
+
 export class HeroComponent {
 title = 'Hero komponent sekcija';
 hero = { name: 'Jane Doe', salary: 5000.34, joinDate: new Date()};

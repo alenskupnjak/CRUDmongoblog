@@ -9,6 +9,12 @@ import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { InvoicesModule } from '../invoices/invoices.module';
 import { ClientsModule } from '../clients/clients.module';
+import { DialogService } from '../shared/dialog.service';
+import { HeroComponent } from '../hero/hero.component';
+import { HeroService } from '../shared/hero.service';
+import { HeroListComponent } from '../hero/hero-list/hero-list.component';
+import { HeroDetailComponent } from '../hero/hero-detail/hero-detail.component';
+import { Logger } from '../shared/logger.service';
 
 @NgModule({
   imports: [
@@ -22,8 +28,12 @@ import { ClientsModule } from '../clients/clients.module';
     DashboardComponent,
     MainContentComponent,
     SideNavComponent,
-    ToolbarComponent
-  ]
+    ToolbarComponent,
+    HeroComponent,
+    HeroListComponent,
+    HeroDetailComponent
+  ],
+  providers: [ DialogService, HeroService, Logger ]
 })
 
 export class DashboardModule { }

@@ -13,6 +13,11 @@ import { Hero } from '../../shared/hero';
 })
 export class HeroDetailComponent implements OnInit {
 
+  // hero: Hero[] = [
+  //   {id: 1, rating: 3.45230, name : 'Ja', salary: 23234.9, joinDate: new Date()},
+  //   {id: 2, rating: 4.45230, name : 'Ti', salary: 53234.9, joinDate: new Date()},
+  //   {id: 3, rating: 2.22220, name : 'On', salary: 222222.9, joinDate: new Date()}];
+
   @Input('vezaVanjska') hero: Hero;
   @Output('vezaPromjena') promjena = new EventEmitter();
 
@@ -20,6 +25,7 @@ export class HeroDetailComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
   }
 
   deleteHero() {
